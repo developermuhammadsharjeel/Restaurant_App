@@ -16,6 +16,22 @@ class homePage2 extends StatefulWidget {
 }
 
 class _homePage2State extends State<homePage2> {
+  final ScrollController _scrollController = ScrollController();
+  double _imageSliderHeight = 200.0;
+
+  @override
+  void initState() {
+    super.initState();
+    const double maxImageSliderHeight = 200.0;
+    _scrollController.addListener(() {
+      double offset = _scrollController.position.pixels;
+      double newHeight = maxImageSliderHeight - offset;
+      // Ensure the height doesn't go below 0 or above the max height
+      newHeight = newHeight.clamp(0.0, maxImageSliderHeight);
+      setState(() => _imageSliderHeight = newHeight);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +67,12 @@ class _homePage2State extends State<homePage2> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //Box 1
-          const ImageSliderContainer(),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
+            height: _imageSliderHeight,
+            child: const ImageSliderContainer(),
+          ),
 
 
           //Box2
@@ -63,15 +84,80 @@ class _homePage2State extends State<homePage2> {
               color: Colors.white,),
             
             child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                
+                  btn("Deals"),
+                  btn("Pizza"),
+                  btn("Burgers"),
+                  btn("Wings"),
+                  btn("Drinks"),
+                  btn("Beverage"),
+                  btn("Sources"),
+
                 ],
               ),
             ),
           ),
+          //Box3
+          Expanded(
+            child: Container(
+            width: AppSize.screenWidth(context) *1,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+            ),
 
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: _scrollController,
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: SizedBox(
+                      height: AppSize.screenHeight(context) * 0.183,
+                      width: AppSize.screenWidth(context) * 1,
+
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text("Deals",style: TextStyle(
+                        fontFamily: fonts.font1,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),),
+
+                        const SizedBox(height: 20),
+
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(Images.banner1, fit: BoxFit.cover,
+                            height: AppSize.screenHeight(context) * 0.12,
+                            width: AppSize.screenWidth(context)*1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    ),
+                  ),
+
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+                  ProductBox(title: "Deal 1", text: "A burger with pizza", price: 20, path: Images.deal1),
+
+
+                ],
+              ),
+            ),
+            ),
+          ),
         ],
 
       ),
@@ -154,14 +240,88 @@ class _ImageSliderContainerState extends State<ImageSliderContainer> {
 //...................Main Products List Buttons
 
 Widget btn( String text,){
-  return ElevatedButton(onPressed: (){},
-    style: ElevatedButton.styleFrom(
-      foregroundColor: colors.red,
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+
+    child: SizedBox(
+      height: 48,
+      child: ElevatedButton(onPressed: (){},
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+
+          foregroundColor: Colors.white,
+          backgroundColor: colors.red,
+        ),
+          child: Text(text, style: TextStyle(),),
+
+
+          ),
     ),
-      child: Text(text, style: TextStyle(),),
+  );
+}
 
 
+//.................. Products boxes
 
+class ProductBox extends StatefulWidget {
+  final String title;
+  final String text;
+  final double price;
+  final String path;
 
-      );
+  const ProductBox({
+    super.key,
+    required this.title,
+    required this.text,
+    required this.price,
+    required this.path,
+  });
+
+  @override
+  State<ProductBox> createState() => _ProductBoxState();
+}
+
+class _ProductBoxState extends State<ProductBox> {
+  @override
+  Widget build(BuildContext context) {
+
+    //...................................................................
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: SizedBox(
+        height: AppSize.screenHeight(context) *0.12,
+        width: AppSize.screenWidth(context) *1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.title,style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: fonts.font1,
+                fontSize: 25,
+              ),),
+
+              Text(widget.text,style: TextStyle(
+                fontFamily: fonts.font1,
+                fontSize: 15,
+              ),),
+              Text("\$${widget.price}",style: TextStyle(
+                fontFamily: fonts.font1,
+                fontSize: 15,
+              ),),
+              const SizedBox(height: 10),
+            ]
+          ),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(widget.path, fit: BoxFit.cover)),
+          ],
+        ),
+      ),
+    );
+  }
 }

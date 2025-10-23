@@ -6,7 +6,7 @@ class Images{
   static const String banner3 = 'assets/images/banner3.jpg';
   static const String banner4 = 'assets/images/banner4.jpg';
   static const String bannerLogo = "assets/images/bannerLogo.png";
-  static const String deal1 = "assets/images/deal1.png";
+  static const String deal1 = "assets/images/deal1.jpeg";
   static const String deal2 = "assets/images/deal2.png";
   static const String deal3 = "assets/images/deal3.png";
   static const String deal4 = "assets/images/deal4.png";
