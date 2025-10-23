@@ -3,7 +3,7 @@ import 'package:restaurant/resource/picture.dart';
 import 'package:restaurant/resource/colourScheme.dart';
 import 'package:restaurant/resource/appFonts.dart';
 import 'package:restaurant/resource/setsize.dart';
-import 'package:carousel_slider/carousel_slider.dart' as cs;
+import 'package:carousel_slider_plus/carousel_slider_plus.dart' as cs;
 
 
 
@@ -50,21 +50,54 @@ class _homePage2State extends State<homePage2> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          //Box 1
           const ImageSliderContainer(),
 
+
+          //Box2
           Container(
-            height: AppSize.screenHeight(context) * 0.25, // Example: 30% of screen height
-            width: AppSize.screenWidth(context),
+            height: AppSize.screenHeight(context) * 0.1 /1.2,
+            width: AppSize.screenWidth(context) * 1,
+
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white,),
+            
+            child: SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                
+                ],
+              ),
             ),
           ),
+
         ],
 
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -85,10 +118,9 @@ class _ImageSliderContainerState extends State<ImageSliderContainer> {
     Images.banner2,
     Images.banner3,
     Images.banner4,
-
   ];
 
-  final cs.CarouselController _controller = cs.CarouselController();
+  final cs.CarouselSliderController _controller = cs.CarouselSliderController();
   bool _isHovered = false;
 
   @override
@@ -96,41 +128,40 @@ class _ImageSliderContainerState extends State<ImageSliderContainer> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
-      child: Container(
-        margin: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: cs.CarouselSlider(
-            items: imageList.map((item) {
-              return Image.asset(
-                item,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              );
-            }).toList(),
-            carouselController: _controller,
-            options: cs.CarouselOptions(
-              height: 200,
-              autoPlay: !_isHovered,
-              autoPlayInterval: const Duration(seconds: 3),
-              enlargeCenterPage: true,
-              viewportFraction: 1.0,
-              aspectRatio: 16 / 9,
-            ),
-          ),
+      child: cs.CarouselSlider(
+        items: imageList.map((item) {
+          return Image.asset(
+            item,
+            fit: BoxFit.cover,
+            width: double.infinity,
+          );
+        }).toList(),
+        controller: _controller,
+        options: cs.CarouselOptions(
+          height: 200,
+          autoPlay: !_isHovered, // ✅ Pause on hover
+          autoPlayInterval: const Duration(seconds: 2),
+          enlargeCenterPage: true,
+          viewportFraction: 1.0,
+          aspectRatio: 16 / 9,
         ),
       ),
     );
   }
 }
 
+
+//...................Main Products List Buttons
+
+Widget btn( String text,){
+  return ElevatedButton(onPressed: (){},
+    style: ElevatedButton.styleFrom(
+      foregroundColor: colors.red,
+    ),
+      child: Text(text, style: TextStyle(),),
+
+
+
+
+      );
+}

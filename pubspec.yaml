@@ -18,7 +18,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.3
-  carousel_slider: 4.2.0
+  carousel_slider_plus: ^7.0.0
+
+
 
 
 
