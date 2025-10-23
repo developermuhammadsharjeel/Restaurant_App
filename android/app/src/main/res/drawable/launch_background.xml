@@ -1,21 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Native launch screen matching your Flutter splash (background image + bottom-left logo) -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Fallback background color -->
-    <item android:drawable="@android:color/white" />
-
-    <!-- Fullscreen splash background image (use same image as Images.splash) -->
-    <item>
-        <bitmap
-            android:src="@drawable/splash_background"
-            android:gravity="center" />
-    </item>
-
-    <!-- Bottom-left small logo to match your overlay (optional) -->
-    <item>
-        <bitmap
-            android:src="@drawable/splash_logo"
-            android:gravity="bottom|left"
-            android:antialias="true" />
-    </item>
+    <item android:drawable="@android:color/transparent" />
 </layer-list>
