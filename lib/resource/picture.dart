@@ -12,6 +12,7 @@ class Images{
   static const String deal4 = "assets/images/deal4.png";
   static const String splash = "assets/images/splash.png";
   static const String logo = "assets/images/logo.png";
+  static const String longlogo = "assets/images/longlogo.png";
 }
 
 

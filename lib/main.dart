@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'Pages/Page1.dart'; // <-- Your HomePage file (change path if needed)
+import 'Pages/page1.dart'; // <-- Your HomePage file (change path if needed)
 import 'resource/picture.dart';
 
 
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // Navigate to HomePage after 3 seconds
-    Timer(const Duration(seconds: 30), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
@@ -55,13 +55,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
           // Bottom info overlay
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.topRight,
 
             child: Padding(
 
-              padding: const EdgeInsets.only(bottom: 40, left: 30),
+              padding: const EdgeInsets.only(top: 80, right: 30),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset(
                     Images.splash, // <-- Your logo image
