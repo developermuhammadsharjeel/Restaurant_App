@@ -69,7 +69,7 @@ class _homePage2State extends State<homePage2> {
           //Box 1
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            curve: Curves.fastOutSlowIn,
+            curve: Curves.bounceOut,
             height: _imageSliderHeight,
             child: const ImageSliderContainer(),
           ),
